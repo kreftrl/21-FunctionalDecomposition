@@ -17,10 +17,14 @@ def main():
 
 def get_number_guesses():
     print('You set the DIFFICULTY of the game by setting the number of UNSUCCESSFUL choices you can make before you LOSE the game. The traditional form of Hangman sets this number to 5.')
-    return(int(input('How many unsuccessful choices do you want to allow yourself? ')))
+    print('')
+    number=(int(input('How many unsuccessful choices do you want to allow yourself? ')))
+    print('')
+    return number
 
 def get_secret_word():
     minimum_length=int(input('What MINIMUM length do you want for the secret word? '))
+    print('')
     with open('words.txt') as f:
         f.readline()
         string=f.read()
@@ -38,9 +42,11 @@ def check_guess(guess,secret_word,guesses,returned_string):
     for k in range(len(returned_string)): #checks returned string to see if guess is present
         if returned_string[k]==guess:
             print('Good guess! You still have',guesses,'guesses left before you LOSE the game!')
+            print('')
             return returned_string,guesses
     guesses = guesses - 1
     print('Sorry! There are no',guess,'letters in the secret word. You have',guesses,'unsucessful guesses before you lose the game!')
+    print('')
     return returned_string, guesses
 
 def return_returned_string(returned_string):
@@ -53,11 +59,14 @@ def running_game_loop(secret_word,guesses,returned_string):
     while True:
         if guesses==0:
             print('You lose! The secret word was: ',secret_word)
+            print('')
             break
         if return_returned_string(returned_string)==secret_word:
             print('You won the game!')
+            print('')
             break
         guess=input('What letter do you want to try? ')
+        print('')
         returned_from_check_guess=check_guess(guess,secret_word,guesses,returned_string)
         returned_string=returned_from_check_guess[0]
         guesses=returned_from_check_guess[1]
@@ -66,9 +75,11 @@ def running_game_loop(secret_word,guesses,returned_string):
 
 def reset_game():
     response=input('Play another game? (y/n) ')
+    print('')
     if response=='n':
         print('Thanks for playing Hangman! ')
     if response=='y':
+        print('')
         main()
 
 def setup():
